@@ -9,12 +9,14 @@
         <div class="flex flex-col sm:flex-row">
           <button
             class="px-6 py-2 font-bold rounded-full text-white focus:outline-none"
+            @click="() => emit('create-account')"
           >
             Crie uma conta
           </button>
 
           <button
             class="px-6 py-2 font-bol rounded-full bg-white text-brand-main focus:outline-none"
+            @click="() => emit('login')"
           >
             Entrar
           </button>
@@ -36,6 +38,7 @@
         <div>
           <button
             class="px-6 py-2 mt-10 font-bold rounded-full bg-white text-brand-main focus:outline-none"
+            @click="() => emit('create-account')"
           >
             Crie uma conta grátis
           </button>
@@ -49,7 +52,12 @@
 <script>
 
 export default {
-  name: 'customHeader-component'
+  name: 'customHeader-component',
+  setup (_, { emit }) {
+    return {
+      emit
+    }
+  }
 }
 </script>
 <style lang="postcss" scoped>
