@@ -4,11 +4,13 @@
 
 <script>
 import Loading from './Loading.vue'
+import Copy from './Copy.vue'
 
 export default {
   name: 'icon-component',
   components: {
-    Loading
+    Loading,
+    Copy
   },
   props: {
     name: {

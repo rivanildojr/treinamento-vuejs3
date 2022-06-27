@@ -19,7 +19,7 @@ const routes = [
     }
   },
   {
-    path: '/Credentials',
+    path: '/credentials',
     name: 'Credentials',
     component: Credentials,
     meta: {
