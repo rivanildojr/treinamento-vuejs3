@@ -25,6 +25,7 @@
         </li>
 
         <li
+          id="logout-button"
           class="px-6 py-2 font-bold bg-white text-brand-main rounded-full cursor-pointer focus:outline-none"
           @click="handleLogout"
         >
