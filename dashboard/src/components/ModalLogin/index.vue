@@ -1,5 +1,8 @@
 <template>
-  <div class="flex justify-between">
+  <div
+    id="modal-login"
+    class="flex justify-between"
+  >
     <h1 class="text-4xl font-black text-gray-800">
       Entre na sua conta
     </h1>
@@ -18,6 +21,7 @@
         <span class="text-lg font-medium text-gray-800">E-mail</span>
 
         <input
+          id="email-field"
           type="email"
           class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
           :class="{'border-brand-danger': !!state.email.errorMessage}"
@@ -26,6 +30,7 @@
         >
 
         <span
+          id="email-error"
           v-if="!!state.email.errorMessage"
           class="block font-medium text-brand-danger"
         >
@@ -37,6 +42,7 @@
         <span class="text-lg font-medium text-gray-800">Senha</span>
 
         <input
+          id="password-field"
           type="password"
           class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
           :class="{'border-brand-danger': !!state.password.errorMessage}"
@@ -52,6 +58,7 @@
       </label>
 
       <button
+        id="submit-button"
         type="submit"
         class="px-8 py-3 mt-10 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
         :disabled="state.isLoading"

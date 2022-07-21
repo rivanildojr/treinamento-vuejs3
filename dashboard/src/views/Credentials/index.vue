@@ -36,7 +36,7 @@
       >
         <span v-if="state.hasError">Erro ao carregar ao carregar a apikey</span>
 
-        <span v-else>{{ apiKey }}</span>
+        <span v-else id="apikey">{{ apiKey }}</span>
 
         <div
           v-if="!state.hasError"
@@ -51,6 +51,7 @@
           />
 
           <icon
+            id="generate-apikey"
             name="loading"
             :color="brandColors.graydark"
             size="24"

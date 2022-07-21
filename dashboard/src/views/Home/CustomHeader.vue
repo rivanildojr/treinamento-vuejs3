@@ -8,6 +8,7 @@
 
         <div class="flex flex-col sm:flex-row">
           <button
+            id="header-create-account-button"
             class="px-6 py-2 font-bold rounded-full text-white focus:outline-none"
             @click="() => emit('create-account')"
           >
@@ -15,6 +16,7 @@
           </button>
 
           <button
+            id="header-login-button"
             class="px-6 py-2 font-bol rounded-full bg-white text-brand-main focus:outline-none"
             @click="() => emit('login')"
           >
@@ -37,6 +39,7 @@
 
         <div>
           <button
+            id="cta-create-account-button"
             class="px-6 py-2 mt-10 font-bold rounded-full bg-white text-brand-main focus:outline-none"
             @click="() => emit('create-account')"
           >
