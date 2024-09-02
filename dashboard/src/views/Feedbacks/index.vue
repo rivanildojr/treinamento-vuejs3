@@ -1,20 +1,15 @@
 <template>
-  <div class="flex justify-center w-full h-28 bg-brand-main">
+  <div class="flex justify-center w-full min-h-28 bg-brand-main">
     <header-logged />
   </div>
 
-  <div class="flex flex-col items-center justify-center h-64 bg-brand-gray">
-    <h1 class="text-4xl font-black text-center text-gray-800">
-      Feedbacks
-    </h1>
-
-    <p class="text-lg text-center text-gray-800 font-regular">
-      Detalhes de todos os feedbacks recebidos.
-    </p>
-  </div>
+  <ContentTitle
+    title="Feedbacks"
+    description="Detalhes de todos os feedbacks recebidos."
+  />
 
   <div class="flex justify-center w-full pb-20">
-    <div class="w-4/5 max-w-6 py-10 grid grid-cols-4 gap-2">
+    <div class="w-4/5 max-w-6 py-10 grid grid-cols-1 gap-2 md:grid-cols-4">
       <div>
         <h1 class="text-3xl font-black text-gray-800">
           Listagem
@@ -27,6 +22,7 @@
               @select="handleChangeFeedbackType"
             />
           </template>
+
           <template #fallback>
             <filters-loading
               class="mt-8"
@@ -35,7 +31,7 @@
         </suspense>
       </div>
 
-      <div class="col-span-3 px-10 pt-20">
+      <div class="pt-2 md:col-span-3 md:px-10 md:pt-20">
         <p
           v-if="state.hasError"
           class="text-lg text-center text-gray-800 font-regular"
@@ -75,6 +71,7 @@
 import { onErrorCaptured, onMounted, onUnmounted, reactive } from 'vue'
 
 import HeaderLogged from '@/components/HeaderLogged'
+import ContentTitle from '@/components/ContentTitle'
 import FeedbackCard from '@/components/FeedbackCard'
 import FeedbackCardLoading from '@/components/FeedbackCard/Loading.vue'
 import Filters from './Filters.vue'
@@ -86,6 +83,7 @@ export default {
   name: 'feedbacks-page',
   components: {
     HeaderLogged,
+    ContentTitle,
     Filters,
     FiltersLoading,
     FeedbackCard,
@@ -156,6 +154,7 @@ export default {
     async function getFeedbacks () {
       try {
         state.isLoading = true
+
         const { data } = await services.feedbacks.getAll({
           ...state.pagination,
           type: state.currentFeedbackType

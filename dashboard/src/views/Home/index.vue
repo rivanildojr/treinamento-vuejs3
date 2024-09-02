@@ -7,7 +7,9 @@
   <contact />
 
   <footer class="flex justify-center py-10 bg-brand-gray">
-    <p class="font-medium text-center text-gray-800">feedbacker © 2022</p>
+    <p class="font-medium text-center text-gray-800">
+      feedbacker © 2022
+    </p>
   </footer>
 </template>
 
@@ -18,6 +20,8 @@ import { useRouter } from 'vue-router'
 import CustomHeader from './CustomHeader.vue'
 import Contact from './Contact.vue'
 import useModal from '@/hooks/useModal'
+
+import { LOCAL_STORAGE } from '@/constants/localStorage'
 
 export default {
   components: {
@@ -30,7 +34,8 @@ export default {
     const modal = useModal()
 
     onMounted(() => {
-      const token = window.localStorage.getItem('token-feedbacker')
+      const token = window.localStorage.getItem(LOCAL_STORAGE.TOKEN_LOGIN)
+
       if (token) {
         router.push({
           name: 'Feedbacks'

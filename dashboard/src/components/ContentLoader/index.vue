@@ -10,6 +10,7 @@
       :style="{ animationDuration }"
       class="content-loader--fx"
     />
+
     <slot />
   </div>
 </template>

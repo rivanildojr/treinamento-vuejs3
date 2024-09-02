@@ -18,7 +18,9 @@
           <span
             class="inline-block w-2 h-2 mr-2 rounded-full"
             :class="filter.bgColor"
-          ></span> {{ filter.label }}
+          ></span>
+
+          {{ filter.label }}
         </div>
 
         <span
@@ -36,6 +38,7 @@
 import { reactive } from 'vue'
 
 import services from '@/services'
+
 import useStore from '@/hooks/useStore'
 
 import { LABELS, BG_COLORS, TEXT_COLORS } from './constants'
@@ -62,6 +65,7 @@ function applyFiltersStructure (summary) {
 export default {
   async setup (_, { emit }) {
     const store = useStore('Global')
+
     const state = reactive({
       hasError: false,
       filters: [{
@@ -72,9 +76,11 @@ export default {
 
     try {
       const { data } = await services.feedbacks.getSummary()
+
       state.filters = applyFiltersStructure(data)
     } catch (error) {
       state.hasError = !!error
+
       state.filters = applyFiltersStructure({ all: 0, issue: 0, idea: 0, other: 0 })
     }
 

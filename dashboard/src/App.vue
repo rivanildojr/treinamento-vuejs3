@@ -1,6 +1,7 @@
 <template>
   <modal-factory />
-  <router-view/>
+
+  <router-view />
 </template>
 
 <script>
@@ -13,6 +14,8 @@ import services from '@/services'
 
 import { setCurrentUser } from '@/store/user'
 
+import { LOCAL_STORAGE } from '@/constants/localStorage'
+
 export default {
   components: {
     ModalFactory
@@ -23,14 +26,16 @@ export default {
 
     watch(() => route.path, async () => {
       if (route.meta.hasAuth) {
-        const token = window.localStorage.getItem('token-feedbacker')
+        const token = window.localStorage.getItem(LOCAL_STORAGE.TOKEN_LOGIN)
 
         if (!token) {
           router.push({ name: 'Home' })
+
           return
         }
 
         const { data } = await services.users.getMe()
+
         setCurrentUser(data)
       }
     })

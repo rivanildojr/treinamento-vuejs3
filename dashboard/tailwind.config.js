@@ -352,10 +352,10 @@ module.exports = {
       DEFAULT: '1'
     },
     fontFamily: {
-      regular: ['RobotoRegular'],
-      medium: ['RobotoMedium'],
-      bold: ['RobotoBold'],
-      black: ['RobotoBlack'],
+      regular: ['RobotoRegular'], // fontes adicionais
+      medium: ['RobotoMedium'], // fontes adicionais
+      bold: ['RobotoBold'], // fontes adicionais
+      black: ['RobotoBlack'], // fontes adicionais
       sans: [
         'ui-sans-serif',
         'system-ui',

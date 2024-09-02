@@ -18,14 +18,16 @@
   <div class="mt-16">
     <form @submit.prevent="handleSubmit">
       <label class="block">
-        <span class="text-lg font-medium text-gray-800">Nome</span>
+        <span class="text-lg font-medium text-gray-800">
+          Nome
+        </span>
 
         <input
+          v-model="state.name.value"
           type="text"
           class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
           :class="{'border-brand-danger': !!state.name.errorMessage}"
           placeholder="Jane Dae"
-          v-model="state.name.value"
         >
 
         <span
@@ -37,14 +39,16 @@
       </label>
 
       <label class="block mt-9">
-        <span class="text-lg font-medium text-gray-800">E-mail</span>
+        <span class="text-lg font-medium text-gray-800">
+          E-mail
+        </span>
 
         <input
+          v-model="state.email.value"
           type="email"
           class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
           :class="{'border-brand-danger': !!state.email.errorMessage}"
           placeholder="jane.dae@gmail.com"
-          v-model="state.email.value"
         >
 
         <span
@@ -56,13 +60,15 @@
       </label>
 
       <label class="block mt-9">
-        <span class="text-lg font-medium text-gray-800">Senha</span>
+        <span class="text-lg font-medium text-gray-800">
+          Senha
+        </span>
 
         <input
+          v-model="state.password.value"
           type="password"
           class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
           :class="{'border-brand-danger': !!state.password.errorMessage}"
-          v-model="state.password.value"
         >
 
         <span
@@ -104,6 +110,8 @@ import { validateEmptyAndLength3, validateEmptyAndEmail } from '@/utils/validato
 import { STATUS_RESPONSE_API } from '@/constants/statusCode'
 
 import services from '@/services'
+
+import { LOCAL_STORAGE } from '@/constants/localStorage'
 
 export default {
   name: 'modalCreateAccount-component',
@@ -154,10 +162,12 @@ export default {
       })
 
       if (!errors) {
-        window.localStorage.setItem('token-feedbacker', data.token)
+        window.localStorage.setItem(LOCAL_STORAGE.TOKEN_LOGIN, data.token)
+
         router.push({
           name: 'Feedbacks'
         })
+
         modal.close()
       }
     }
@@ -185,6 +195,7 @@ export default {
         }
       } catch (error) {
         state.hasErrors = !!error
+
         toast.error('Ocorreu um erro ao criar a conta')
       } finally {
         state.isLoading = false

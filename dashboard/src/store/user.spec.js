@@ -1,4 +1,5 @@
-import userStore from '@/hooks/useStore'
+import useStore from '@/hooks/useStore'
+
 import {
   setCurrentUser,
   resetUserStore,
@@ -10,7 +11,7 @@ let store = null
 
 describe('UserStore', () => {
   beforeEach(() => {
-    store = userStore()
+    store = useStore()
   })
 
   afterEach(() => {

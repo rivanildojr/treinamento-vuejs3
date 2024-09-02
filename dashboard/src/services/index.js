@@ -7,9 +7,11 @@ import FeedbacksService from './feedbacks'
 
 import { setGlobalLoading } from '@/store/global'
 
+import { LOCAL_STORAGE } from '@/constants/localStorage'
+
 const API_ENVS = {
   production: 'https://backend-treinamento-vue3-seven-tawny.vercel.app',
-  development: '',
+  development: 'http://localhost:3000',
   local: 'http://localhost:3000'
 }
 
@@ -37,7 +39,7 @@ httpClient.interceptors.response.use(response => {
 
 httpClient.interceptors.request.use(config => {
   setGlobalLoading(true)
-  const token = window.localStorage.getItem('token-feedbacker')
+  const token = window.localStorage.getItem(LOCAL_STORAGE.TOKEN_LOGIN)
 
   if (token) {
     config.headers.common.Authorization = `Bearer ${token}`

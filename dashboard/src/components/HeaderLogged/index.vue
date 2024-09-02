@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between w-4/5 max-w-6xl py-10">
+  <div class="flex flex-col items-center justify-center flex-wrap w-4/5 max-w-6xl py-10 md:flex-row md:justify-between">
     <div class="w-28 lg:w-36">
       <img
         src="@/assets/images/logo.png"
@@ -9,16 +9,16 @@
     </div>
 
     <div class="flex">
-      <ul class="flex list-none">
+      <ul class="flex flex-col list-none md:flex-row">
         <li
-          class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
+          class="list-item"
           @click="handleRedirectCredentials"
         >
           Credenciais
         </li>
 
         <li
-          class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
+          class="list-item"
           @click="handleRedirectFeedbacks"
         >
           Feedbacks
@@ -43,6 +43,8 @@ import { useRouter } from 'vue-router'
 import useStore from '@/hooks/useStore'
 import { cleanCurrentUser } from '@/store/user'
 
+import { LOCAL_STORAGE } from '@/constants/localStorage'
+
 export default {
   setup () {
     const router = useRouter()
@@ -61,8 +63,10 @@ export default {
     }
 
     function handleLogout () {
-      window.localStorage.removeItem('token-feedbacker')
+      window.localStorage.removeItem(LOCAL_STORAGE.TOKEN_LOGIN)
+
       cleanCurrentUser()
+
       router.push({ name: 'Home' })
     }
 
@@ -75,3 +79,9 @@ export default {
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+.list-item {
+  @apply px-6 py-2 font-bold text-white rounded-full cursor-pointer md:mr-2 focus:outline-none;
+}
+</style>

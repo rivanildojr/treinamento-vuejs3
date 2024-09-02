@@ -3,15 +3,10 @@
     <header-logged />
   </div>
 
-  <div class="flex flex-col items-center justify-center h-64 bg-brand-gray">
-    <h1 class="text-4xl font-black text-center text-gray-800">
-      Credenciais
-    </h1>
-
-    <p class="text-lg text-center text-gray-800 font-regular">
-      Guia de instalação e geração de suas credenciais
-    </p>
-  </div>
+  <ContentTitle
+    title="Credenciais"
+    description="Guia de instalação e geração de suas credenciais"
+  />
 
   <div class="flex justify-center w-full h-full">
     <div class="flex flex-col w-4/5 max-w-6xl py-10">
@@ -30,36 +25,13 @@
         height="50px"
       />
 
-      <div
+      <ApiKey
         v-else
-        class="flex py-3 pl-5 mt-2 rounded justify-between items-center bg-brand-gray w-full lg:w-1/2"
-      >
-        <span v-if="state.hasError">Erro ao carregar ao carregar a apikey</span>
-
-        <span v-else id="apikey">{{ apiKey }}</span>
-
-        <div
-          v-if="!state.hasError"
-          class="flex ml-20 mr-1"
-        >
-          <icon
-            name="copy"
-            :color="brandColors.graydark"
-            size="24"
-            class="cursor-pointer"
-            @click="handleCopy"
-          />
-
-          <icon
-            id="generate-apikey"
-            name="loading"
-            :color="brandColors.graydark"
-            size="24"
-            class="cursor-pointer ml-3"
-            @click="handleGenerateApiKey"
-          />
-        </div>
-      </div>
+        :hasError="state.hasError"
+        :apiKey="apiKey"
+        @onCopy="handleCopy"
+        @onGenerateApiKey="handleGenerateApiKey"
+      />
 
       <p class="mt-5 text-lg text-gray-800 font-regular">
         Coloque o script abaixo no seu site para começar a receber feedbacks
@@ -72,16 +44,11 @@
         height="50px"
       />
 
-      <div
+      <Script
         v-else
-        class="py-3 pl-5 pr-20 mt-2 rounded bg-brand-gray w-full lg:w-2/3 overflow-x-scroll"
-      >
-        <span v-if="state.hasError">Erro ao carregar o script</span>
-
-        <pre v-else>
-          &lt;script src="https://rivanildojr-feedbacker-widget.netlify.app?api_key={{ apiKey }}"&gt;&lt;/script&gt;
-        </pre>
-      </div>
+        :hasError="state.hasError"
+        :apiKey="apiKey"
+      />
     </div>
   </div>
 </template>
@@ -91,8 +58,10 @@ import { computed, reactive, watch } from 'vue'
 import { useToast } from 'vue-toastification'
 
 import HeaderLogged from '@/components/HeaderLogged'
-import Icon from '@/components/Icon'
+import ContentTitle from '@/components/ContentTitle'
 import ContentLoader from '@/components/ContentLoader'
+import ApiKey from './ApiKey.vue'
+import Script from './Script.vue'
 
 import useStore from '@/hooks/useStore'
 import { setApiKey } from '@/store/user'
@@ -105,8 +74,10 @@ export default {
   name: 'credentials-page',
   components: {
     HeaderLogged,
-    Icon,
-    ContentLoader
+    ContentTitle,
+    ContentLoader,
+    ApiKey,
+    Script
   },
   setup () {
     const storeUser = useStore('User')
@@ -128,7 +99,9 @@ export default {
     async function handleGenerateApiKey () {
       try {
         state.isLoading = true
+
         const { data } = await services.users.generateApiKey()
+
         setApiKey(data.apiKey)
       } catch (error) {
         handleError(error)
@@ -139,12 +112,15 @@ export default {
 
     function handleError (error) {
       state.hasError = !!error
+      state.isLoading = false
     }
 
     async function handleCopy () {
       toast.clear()
+
       try {
         await navigator.clipboard.writeText(apiKey.value)
+
         toast.success('Copiado!')
       } catch (error) {
         handleError(error)

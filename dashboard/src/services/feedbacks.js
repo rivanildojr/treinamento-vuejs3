@@ -6,6 +6,7 @@ const DEFAULT_PAGINATION = {
 export default httpClient => ({
   getAll: async ({ type, limit, offset } = DEFAULT_PAGINATION) => {
     const query = { limit, offset }
+
     if (type) {
       query.type = type
     }

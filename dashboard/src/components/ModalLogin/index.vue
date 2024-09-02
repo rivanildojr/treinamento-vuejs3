@@ -9,7 +9,7 @@
 
     <button
       class="text-4xl text-gray-600 focus:outline-none"
-      @click="close"
+      @click="handleCloseModal"
     >
       &times;
     </button>
@@ -18,20 +18,22 @@
   <div class="mt-16">
     <form @submit.prevent="handleSubmit">
       <label class="block">
-        <span class="text-lg font-medium text-gray-800">E-mail</span>
+        <span class="text-lg font-medium text-gray-800">
+          E-mail
+        </span>
 
         <input
+          v-model="state.email.value"
           id="email-field"
           type="email"
           class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
           :class="{'border-brand-danger': !!state.email.errorMessage}"
           placeholder="jane.dae@gmail.com"
-          v-model="state.email.value"
         >
 
         <span
-          id="email-error"
           v-if="!!state.email.errorMessage"
+          id="email-error"
           class="block font-medium text-brand-danger"
         >
           {{ state.email.errorMessage }}
@@ -39,14 +41,16 @@
       </label>
 
       <label class="block mt-9">
-        <span class="text-lg font-medium text-gray-800">Senha</span>
+        <span class="text-lg font-medium text-gray-800">
+          Senha
+        </span>
 
         <input
+          v-model="state.password.value"
           id="password-field"
           type="password"
           class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
           :class="{'border-brand-danger': !!state.password.errorMessage}"
-          v-model="state.password.value"
         >
 
         <span
@@ -70,7 +74,9 @@
           class="animate-spin"
         />
 
-        <span v-else>Entrar</span>
+        <span v-else>
+          Entrar
+        </span>
       </button>
     </form>
   </div>
@@ -89,6 +95,8 @@ import { validateEmptyAndLength3, validateEmptyAndEmail } from '@/utils/validato
 import { STATUS_RESPONSE_API } from '@/constants/statusCode'
 
 import services from '@/services'
+
+import { LOCAL_STORAGE } from '@/constants/localStorage'
 
 export default {
   name: 'modalLogin-component',
@@ -126,18 +134,23 @@ export default {
     async function handleSubmit () {
       try {
         toast.clear()
+
         state.isLoading = true
+
         const { data, errors } = await services.auth.login({
           email: state.email.value,
           password: state.password.value
         })
 
         if (!errors) {
-          window.localStorage.setItem('token-feedbacker', data.token)
+          window.localStorage.setItem(LOCAL_STORAGE.TOKEN_LOGIN, data.token)
+
           router.push({
             name: 'Feedbacks'
           })
+
           modal.close()
+
           return
         }
 
@@ -154,15 +167,20 @@ export default {
         }
       } catch (error) {
         state.hasErrors = !!error
+
         toast.error('Ocorreu um erro ao fazer o login')
       } finally {
         state.isLoading = false
       }
     }
 
+    function handleCloseModal () {
+      modal.close()
+    }
+
     return {
       state,
-      close: modal.close,
+      handleCloseModal,
       handleSubmit
     }
   }
