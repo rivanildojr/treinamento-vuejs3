@@ -50,7 +50,7 @@ import useStore from '@/hooks/store'
 import useNavigation from '@/hooks/navigation'
 import type { Navigation } from '@/hooks/navigation'
 
-import { palette } from '../../../palette'
+import palette from '../../../palette'
 
 import colors from 'tailwindcss/colors'
 import type { DefaultColors } from 'tailwindcss/types/generated/colors'

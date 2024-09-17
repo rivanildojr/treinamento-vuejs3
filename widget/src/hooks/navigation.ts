@@ -7,6 +7,8 @@ import { NAME_COMPONENTS_WIZARD } from '@/constants/nameComponents'
 export interface Navigation {
   next: () => void
   back: () => void
+  setErrorState: () => void
+  setSuccessState: () => void
 }
 
 export default function useNavigation() {
@@ -25,8 +27,18 @@ export default function useNavigation() {
     }
   }
 
+  function setErrorState(): void {
+    setCurrentComponent(NAME_COMPONENTS_WIZARD.ERROR)
+  }
+
+  function setSuccessState(): void {
+    setCurrentComponent(NAME_COMPONENTS_WIZARD.SUCCESS)
+  }
+
   return {
     next,
-    back
+    back,
+    setErrorState,
+    setSuccessState
   }
 }

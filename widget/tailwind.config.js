@@ -6,7 +6,7 @@ export default {
   darkMode: 'media', // or 'class'
   theme: {
     extend: {
-      colors: palette
+      colors: { ...palette }
     },
     accentColor: ({ theme }) => ({
       ...theme('colors'),

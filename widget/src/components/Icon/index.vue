@@ -9,6 +9,8 @@ import ChevronDown from './ChevronDown.vue'
 import Chat from './Chat.vue'
 import Close from './Close.vue'
 import Arrow from './Arrow.vue'
+import Check from './Check.vue'
+import Attention from './Attention.vue'
 
 export default {
   name: 'icon-component',
@@ -18,7 +20,9 @@ export default {
     ChevronDown,
     Chat,
     Close,
-    Arrow
+    Arrow,
+    Check,
+    Attention
   },
   props: {
     name: {

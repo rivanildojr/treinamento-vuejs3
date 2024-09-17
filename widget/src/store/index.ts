@@ -1,5 +1,7 @@
 import { reactive, readonly } from 'vue'
 
+import { NAME_COMPONENTS_WIZARD } from '@/constants/nameComponents'
+
 export type StoreState = {
   currentComponent: string
   message: string
@@ -10,7 +12,7 @@ export type StoreState = {
 }
 
 const initialState: StoreState = {
-  currentComponent: 'SelectFeedbackType',
+  currentComponent: NAME_COMPONENTS_WIZARD.SELECT_FEEDBACK_TYPE,
   message: '',
   feedbackType: '',
   fingerprint: '',
