@@ -5,12 +5,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onMounted } from 'vue'
+import { defineComponent, reactive, watch } from 'vue'
 
 import Standby from './Standby.vue'
 import Box from './Box.vue'
 
 import useIframeControl from '@/hooks/iframe'
+import useStore from '@/hooks/store'
 
 import { NAME_COMPONENTS_WIDGET } from '@/constants/nameComponents'
 
@@ -31,11 +32,15 @@ export default defineComponent({
     Box
   },
   setup(): StateReturn {
+    const store = useStore()
     const iframe = useIframeControl()
 
-    onMounted(() => {
-      iframe.updateCoreValuesOnStore()
-    })
+    watch(
+      () => store.currentComponent,
+      () => {
+        iframe.updateCoreValuesOnStore()
+      }
+    )
 
     const state = reactive<State>({
       component: NAME_COMPONENTS_WIDGET.STANDBY
