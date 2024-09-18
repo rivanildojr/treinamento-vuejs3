@@ -7,7 +7,12 @@
     </span>
 
     <pre v-else-if="apiKey">
-      &lt;script src="https://rivanildojr-feedbacker-widget.netlify.app?api_key={{ apiKey }}"&gt;&lt;/script&gt;
+      &lt;script
+        defer
+        async
+        onload="init('{{apiKey}}')"
+        src="https://rivanildojr-feedbacker-widget.netlify.app/init.js"
+      &gt;&lt;/script&gt;
     </pre>
   </div>
 </template>

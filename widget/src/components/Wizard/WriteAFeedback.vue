@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, readonly } from 'vue'
+import { defineComponent, reactive, computed } from 'vue'
 import type { ComputedRef } from 'vue'
 
 import Icon from '@/components/Icon/index.vue'
@@ -32,7 +32,7 @@ import { setMessage } from '@/store'
 import useStore from '@/hooks/store'
 import useNavigation from '@/hooks/navigation'
 
-// import services from '@/services'
+import services from '@/services'
 
 interface SetupReturn {
   state: State
@@ -78,20 +78,20 @@ export default defineComponent({
 
         state.isLoading = true
 
-        // const response = await services.feedbacks.create({
-        //   type: store.feedbackType,
-        //   text: store.message,
-        //   page: store.currentPage,
-        //   apiKey: store.apiKey,
-        //   fingerprint: store.fingerprint,
-        //   device: window.navigator.userAgent
-        // })
+        const response = await services.feedbacks.create({
+          type: store.feedbackType,
+          text: store.message,
+          page: store.currentPage,
+          apiKey: store.apiKey,
+          fingerprint: store.fingerprint,
+          device: window.navigator.userAgent
+        })
 
-        // if (!response.errors) {
-        //   setSuccessState()
+        if (!response.errors) {
+          setSuccessState()
 
-        //   return
-        // }
+          return
+        }
 
         setErrorState()
       } catch (error: Error | any) {
