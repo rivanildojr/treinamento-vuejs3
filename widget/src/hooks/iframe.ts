@@ -14,7 +14,7 @@ interface IframeControl {
 
 export default function useIframeControl(): IframeControl {
   function updateCoreValuesOnStore(): void {
-    if (process.env.NODE_ENV === 'production') {
+    if (import.meta.env.NODE_ENV === 'production') {
       const query = new URLSearchParams(window.location.search)
 
       const apiKey = query.get('api_key') ?? ''
