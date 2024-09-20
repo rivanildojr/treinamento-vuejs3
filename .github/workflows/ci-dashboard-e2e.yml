@@ -24,7 +24,7 @@ jobs:
 
       - run: npm run build
         env:
-          NODE_ENV: production
+          VUE_NODE_ENV: production
 
       - name: Run project locally
         run: |
