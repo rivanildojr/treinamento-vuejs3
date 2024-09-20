@@ -5,7 +5,7 @@ async function handleLoadWidget(apiKey) {
   const page = `${window.location.origin}${window.location.pathname}`
 
   const fp = await window.FingerprintJS.load()
-  const fingerprint = fp.get()
+  const fingerprint = await fp.get()
 
   const WIDGET_URL = `${PREFIX_WIDGET_URL}?api_key=${apiKey}&page${page}&fingerprint=${fingerprint.visitorId}`
 
@@ -49,7 +49,7 @@ function init(apiKey) {
 
   script.src = 'https://openfpcdn.io/fingerprintjs/v4/iife.min.js'
   script.async = true
-  script.addEventListener('load', handleLoadWidget(apiKey))
+  script.addEventListener('load', () => handleLoadWidget(apiKey))
 
   document.body.appendChild(script)
 }
