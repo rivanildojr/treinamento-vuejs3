@@ -9,7 +9,7 @@ const API_ENVS: Record<string, string> = {
 }
 
 const httpClient = axios.create({
-  baseURL: API_ENVS[import.meta.env.NODE_ENV] || API_ENVS.local
+  baseURL: API_ENVS[import.meta.env.VITE_NODE_ENV] || API_ENVS.local
 })
 
 httpClient.interceptors.response.use(

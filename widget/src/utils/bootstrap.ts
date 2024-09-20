@@ -4,7 +4,7 @@ interface SetupPayload {
 }
 
 export function setup({ onProduction, onDevelopment }: SetupPayload) {
-  if (import.meta.env.NODE_ENV === 'production') {
+  if (import.meta.env.VITE_NODE_ENV === 'production') {
     onProduction()
 
     return

@@ -15,6 +15,6 @@ setup({
     createApp(App).mount('#app')
   },
   onDevelopment: () => {
-    createApp(App).mount('#app')
+    createApp(Playground).mount('#app')
   }
 })
