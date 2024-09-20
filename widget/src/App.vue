@@ -1,6 +1,4 @@
 <template>
-  <h1 class="text-gray-500">Widget</h1>
-
   <Widget />
 </template>
 
