@@ -47,7 +47,7 @@ async function handleLoadWidget(apiKey) {
 function init(apiKey) {
   const script = document.createElement('script')
 
-  script.src = `//cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js`
+  script.src = 'https://openfpcdn.io/fingerprintjs/v4/iife.min.js'
   script.async = true
   script.addEventListener('load', handleLoadWidget(apiKey))
 
