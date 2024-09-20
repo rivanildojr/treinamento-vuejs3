@@ -1,4 +1,4 @@
-name: E2E testing
+name: Dashboard e2e testing
 
 on:
   workflow_dispatch:
@@ -33,6 +33,6 @@ jobs:
       - name: Run tests
         uses: cypress-io/github-action@v2
         with:	
-          working-directory: .
+          working-directory: dashboard
           browser: chrome
           headless: true
